@@ -1,19 +1,26 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+
 
 /**
  * @project: 3rd practical case Software engineering II.
  * @author: mcr99 on 16/05/2022.
  */
-public class Pack implements Product {
+public class Pack extends Product implements Observer {
 
     private float discount;
+
+    private boolean hasChanged;
+
+    private float price;
 
     private List<Product> products;
 
     public Pack(float discount) {
         this.discount = discount;
         this.products = new ArrayList<Product>();
+        this.hasChanged = false;
     }
 
     public void removeProd(Product p) {
@@ -22,12 +29,14 @@ public class Pack implements Product {
 
     @Override
     public float getPrice() {
-        float price = 0f;
-        for (Product p : products) {
-            price += p.getPrice();
+        if (!this.hasChanged) {
+            return this.price * (1f - getDiscount());
         }
-        price = (1f - getDiscount()) * price;
-        return price;
+        for (Product p : products) {
+            this.price += p.getPrice();
+        }
+        this.hasChanged = false;
+        return this.price * (1f - getDiscount());
     }
 
     public float getDiscount() {
@@ -37,13 +46,19 @@ public class Pack implements Product {
     public void setDiscount(float discount) {
         if (discount < 0f || discount > 1f) {
             throw new IllegalArgumentException("Not valid discount");
-        } else {
+        }
+        if (this.discount != discount) {
+            float olD = this.discount;
             this.discount = discount;
+
         }
     }
 
     public void addProduct(Product product) {
         this.products.add(product);
+        float oldP = this.price;
+        this.price += product.getPrice();
+        notifyObservers(new PriceChanged(oldP, this.price));
     }
 
     @Override
@@ -52,5 +67,15 @@ public class Pack implements Product {
                 "discount = " + discount +
                 ", products = " + products +
                 '}';
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        PriceChanged pC = (PriceChanged) arg;
+        float oldP = this.price;
+        if (pC.getNewPrice() != pC.getOldPrice()) {
+            this.hasChanged = true;
+            notifyObservers(new PriceChanged(oldP, this.getPrice()));
+        }
     }
 }

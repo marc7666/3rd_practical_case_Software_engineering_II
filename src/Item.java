@@ -2,7 +2,7 @@
  * @project: 3rd practical case Software engineering II.
  * @author: mcr99 on 16/05/2022.
  */
-public class Item implements Product {
+public class Item extends Product {
     private float price;
 
     public Item(float price) {
@@ -17,8 +17,11 @@ public class Item implements Product {
     public void setPrice(float price) {
         if (price < 0) {
             throw new IllegalArgumentException("Negative price");
-        } else {
+        }
+        if (this.price != price) {
+            float oldP = this.price;
             this.price = price;
+            notifyObservers(new PriceChanged(oldP, this.price));
         }
     }
 

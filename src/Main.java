@@ -36,5 +36,26 @@ public class Main {
         System.out.println("---------- Adding a pack inside a pack ----------");
         System.out.println(p1);
         System.out.println("Final price after discount: " + (p1.getPrice()));
+
+        System.out.println("\n");
+
+        System.out.println("---------- Observer test part ----------");
+        /* Pack */
+        Pack p3 = new Pack(0.6f);
+
+        /* Items */
+        Item i6 = new Item(121.7f);
+        Item i7 = new Item(105.13f);
+        Item i8 = new Item(4000.99f);
+
+        p3.addProduct(i6);
+        p3.addProduct(i7);
+        p3.addProduct(i8);
+
+        System.out.println(p3);
+        i6.setPrice(120.45f);
+        System.out.println(i6.getPrice());
+        System.out.println(p3);
+
     }
 }
