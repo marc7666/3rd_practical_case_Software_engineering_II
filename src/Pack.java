@@ -57,6 +57,7 @@ public class Pack extends Product implements Observer {
     public void addProduct(Product product) {
         this.products.add(product);
         float oldP = this.price;
+        product.addObserver(this);
         this.price += product.getPrice();
         notifyObservers(new PriceChanged(oldP, this.price));
     }
