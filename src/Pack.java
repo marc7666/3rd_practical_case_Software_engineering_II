@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 
 
 /**
@@ -57,7 +58,7 @@ public class Pack extends Product implements Observer {
     public void addProduct(Product product) {
         this.products.add(product);
         float oldP = this.price;
-        product.addObserver(this);
+        product.addObserver((Observer) this);
         this.price += product.getPrice();
         notifyObservers(new PriceChanged(oldP, this.price));
     }
