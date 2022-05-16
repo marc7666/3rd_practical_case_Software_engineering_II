@@ -17,6 +17,9 @@ public class Main {
         p1.addProduct(i2);
         p1.addProduct(i3);
 
+        System.out.println("---------- Composite pattern test part ----------");
+        System.out.println("\n");
+        System.out.println("---------- Pack with items ----------");
         System.out.println(p1);
         System.out.println("Final price after discount: " + (p1.getPrice()));
 
@@ -28,7 +31,9 @@ public class Main {
         p2.addProduct(i5);
         p1.addProduct(p2);
 
-        System.out.println("------------------------------------");
+        System.out.println("\n");
+
+        System.out.println("---------- Adding a pack inside a pack ----------");
         System.out.println(p1);
         System.out.println("Final price after discount: " + (p1.getPrice()));
     }
