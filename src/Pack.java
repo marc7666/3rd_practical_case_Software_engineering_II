@@ -24,10 +24,6 @@ public class Pack extends Product implements Observer {
         this.hasChanged = false;
     }
 
-    public void removeProd(Product p) {
-        this.products.remove(p);
-    }
-
     @Override
     public float getPrice() {
         if (!this.hasChanged) {
