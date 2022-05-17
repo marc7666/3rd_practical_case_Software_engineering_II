@@ -21,6 +21,7 @@ public class Item extends Product {
         if (this.price != price) {
             float oldP = this.price;
             this.price = price;
+            setChanged();
             notifyObservers(new PriceChanged(oldP, this.price));
         }
     }
