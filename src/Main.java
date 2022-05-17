@@ -53,9 +53,11 @@ public class Main {
         p3.addProduct(i8);
 
         System.out.println(p3);
-        i6.setPrice(120.45f);
+        System.out.println("Precio p3 anterior:"+p3.getPrice());
+        i6.setPrice(200.0f);
         System.out.println(i6.getPrice());
         System.out.println(p3);
+        System.out.println("Precio p3 actual:"+p3.getPrice());
 
     }
 }
