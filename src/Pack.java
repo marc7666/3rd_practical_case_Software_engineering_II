@@ -60,6 +60,7 @@ public class Pack extends Product implements Observer {
         float oldP = this.price;
         product.addObserver((Observer) this);
         this.price += product.getPrice();
+        setChanged();
         notifyObservers(new PriceChanged(oldP, this.price));
     }
 
@@ -77,6 +78,7 @@ public class Pack extends Product implements Observer {
         float oldP = this.price;
         if (pC.getNewPrice() != pC.getOldPrice()) {
             this.hasChanged = true;
+            setChanged();
             notifyObservers(new PriceChanged(oldP, this.getPrice()));
         }
     }
