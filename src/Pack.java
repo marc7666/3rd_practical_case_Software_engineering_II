@@ -33,6 +33,7 @@ public class Pack extends Product implements Observer {
         if (!this.hasChanged) {
             return this.price * (1f - getDiscount());
         }
+        this.price = 0;
         for (Product p : products) {
             this.price += p.getPrice();
         }
